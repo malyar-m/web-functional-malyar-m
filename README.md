@@ -1,3 +1,10 @@
+# Michael's comment
+Hey!
+Couldn't upload files here so left 2 dropbox links to videos.
+https://www.dropbox.com/scl/fi/actpus8pjrdui93sdgxqr/2024-04-06-15-51-21.mp4?rlkey=bz8nh90ikuk9y1k5cpk0q1239&dl=0
+https://www.dropbox.com/scl/fi/n1s2lwf3dy8c4oeuxzkrt/2024-04-06-17-25-37.mp4?rlkey=zbgkxdabifowatvygtbmun36k&dl=0
+
+
 # Speechify Web Functional Test
 
 ## Project Overview
