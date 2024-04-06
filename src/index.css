@@ -2,3 +2,22 @@
   margin: 0;
   padding: 0;
 }
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.current-sentence {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.current-sentence .current-word {
+  color: red;
+}
+
+.buttons {
+  margin-top: 20px;
+}

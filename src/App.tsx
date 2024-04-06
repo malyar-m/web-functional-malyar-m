@@ -4,31 +4,48 @@ import './App.css';
 import { Controls } from './components/Controls';
 import { CurrentlyReading } from './components/CurrentlyReading';
 import { fetchContent, parseContentIntoSentences } from './lib/content';
+import { useSpeech } from './lib/useSpeech';
 
 function App() {
   const [sentences, setSentences] = useState<Array<string>>([]);
-  // const { currentWord, currentSentence, controls } = useSpeech(sentences);
+  const [paragraph, setParagraph] = useState<string>('');
+  const { 
+    currentWordRange,
+    currentSentenceIdx,
+    playbackState,
+    play: playHandler,
+    pause: pauseHandler
+  } = useSpeech(sentences);
 
   useEffect(() => {
-    // console.log();
-    const sentence = fetchContent().then((data) => {
-      console.log('33', data);
-      
-      const parsed = parseContentIntoSentences(data);
-      setSentences(parsed);
-    });
-    console.log(sentence);
-    
+    loadContentHander();
   }, [])
+
+  const loadContentHander = () => {
+    fetchContent().then((data) => {
+      const sentences = parseContentIntoSentences(data);
+      setParagraph(sentences.join(' '));
+      setSentences(sentences);
+    });
+  }
 
   return (
     <div className="App">
-      <h1>Text to speech</h1>
-      <div>
-        <CurrentlyReading sentences={sentences} />
-      </div>
-      <div>
-        <Controls />
+      {/* <h1>Text to speech</h1> */}
+      <div className='container'>
+        <CurrentlyReading
+          key={ currentSentenceIdx }
+          paragraph={paragraph}
+          currentWordRange={ currentWordRange } 
+          currentSentenceIdx={ currentSentenceIdx } 
+          sentences={ sentences } 
+        />
+        <Controls 
+          play={() => playHandler()} 
+          pause={() => pauseHandler()} 
+          loadNewContent={() => loadContentHander()} 
+          state={ playbackState } 
+        />
       </div>
     </div>
   );

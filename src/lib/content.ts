@@ -1,5 +1,3 @@
-import { json } from "express";
-
 const API_URL = "http://localhost:5174/content";
 
 /**
@@ -7,7 +5,7 @@ const API_URL = "http://localhost:5174/content";
  * In case of an error, return content as "<speak><s>There was an error</s></speak>"
  */
 const fetchContent = async (url = API_URL): Promise<string> => {
-    const apiResult = await fetch(API_URL);
+    const apiResult = await fetch(url);
     const jsonResult = await apiResult.json();
     return jsonResult.content;
 };
@@ -17,7 +15,12 @@ const fetchContent = async (url = API_URL): Promise<string> => {
  * Avoid using DOMParser for implementing this function.
  */
 const parseContentIntoSentences = (content: string) => {
-    return content.match(/<s>([\w ,.]*)?<\/s>/g);
+    const pattern = /.*?<s>([\w ,.]*)?<\/s>/g
+    const sentences = []
+    for(const match of content.matchAll(pattern)) {
+        sentences.push(match[1])
+    }
+    return sentences
 };
 
 export { fetchContent, parseContentIntoSentences };
